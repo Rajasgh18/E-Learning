@@ -1,0 +1,18 @@
+{
+  "name": "e-learning",
+  "version": "1.0.0",
+  "description": "Backend api for E-Learning Platform",
+  "main": "index.js",
+  "author": "Raja Singh",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon --env-file=.env index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "pg": "^8.11.5",
+    "postgres": "^3.4.4"
+  }
+}
