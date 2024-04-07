@@ -1,17 +1,20 @@
+// Importing packages
 const express = require('express');
 const app = express();
 const CORS = require('cors');
-const getPgVersion = require('./db');
+const db = require('./db');
 
-getPgVersion();
+// Importing routes
+const userRoute = require('./routes/user');
 
+// Applying CORS and added parsing JSON so that JSON data becomes available in req.body
 app.use(CORS());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send("Hello world");
-})
+// Defining Routes
+app.use("/api/user", userRoute);
 
+// Starting the server
 app.listen(5000, () => {
     console.log("E-Learning Platform api running at http://localhost:5000");
-})
+});
