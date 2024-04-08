@@ -49,7 +49,9 @@ Router
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() })
 
-        const { email, password, name, profile_pic } = req.body;
+        const { email, password, name, profile_pic, role } = req.body;
+
+        if (!['admin', 'user'].includes(role)) return res.status(400).send("Role should be either admin or user");
 
         try {
             // Checking if the user already exists
@@ -64,8 +66,8 @@ Router
 
             // Saving the user
             const result = await pool.query(
-                "INSERT INTO users (name, email, password, profile_pic) VALUES ($1, $2, $3, $4) RETURNING id, name, email, profile_pic",
-                [name, email, hashedPassword, profile_pic]);
+                "INSERT INTO users (name, email, password, role, profile_pic) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, email, profile_pic, role",
+                [name, email, hashedPassword, role, profile_pic]);
             user = result.rows[0];
 
             // Generating JWT Token
