@@ -58,6 +58,16 @@ pool.connect(async (err, client, done) => {
         );
         `
     );
+    tableExists(
+        client,
+        'user_course',
+        `CREATE TABLE user_course (
+            id SERIAL PRIMARY KEY,
+            userId INTEGER REFERENCES users(id) NOT NULL,
+            courseId INTEGER REFERENCES courses(id) NOT NULL
+        );
+        `
+    );
 
 });
 
